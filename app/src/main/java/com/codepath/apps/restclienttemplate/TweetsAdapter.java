@@ -93,7 +93,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvTime.setText(Tweet.getRelativeTimeAgo(tweet.time));
             Glide.with(context).load(tweet.user.publicImageUrl).into(ivProfileImage);
             if (tweet.media != null) {
-                Glide.with(context).load(tweet.media).into(ivMedia);
+                Glide.with(context).load(tweet.media).override(1024, 1024).fitCenter().centerCrop().into(ivMedia);
             }
         }
     }
