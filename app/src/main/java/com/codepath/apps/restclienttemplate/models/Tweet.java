@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ public class Tweet {
     public User user;
     public Long id;
     public String time;
+    public String media;
 
     // empty constructor needed for parceler library
     public Tweet(){}
@@ -31,6 +33,22 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
         tweet.time = jsonObject.getString("created_at");
+
+
+
+        if (jsonObject.has("entities")){
+            JSONObject object = jsonObject.getJSONObject("entities");
+            if (object.has("media")) {
+                JSONArray jsonArray = object.getJSONArray("media");
+                JSONObject tweetImgObj = jsonArray.getJSONObject(0);
+                if (tweetImgObj != null) {
+                    tweet.media = tweetImgObj.getString("media_url_https");
+                }
+            }
+        }
+
+
+
         return tweet;
     }
 

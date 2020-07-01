@@ -82,7 +82,6 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 Log.i("TimelineActivity", "onLoadMore");
-                Toast.makeText(getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
                 loadMoreData();
             }
         };
@@ -134,7 +133,6 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.i(TAG, "onSuccess loadMoreData");
-                Toast.makeText(getApplicationContext(), "loading", Toast.LENGTH_SHORT).show();
 
                 //  --> Deserialize and construct new model objects from the API response
                 JSONArray jsonArray = json.jsonArray;
@@ -166,7 +164,6 @@ public class TimelineActivity extends AppCompatActivity {
                 try {
                     adapter.clear();
                     adapter.addAll(Tweet.fromJsonArray(jsonArray));
-
                     swipeContainer.setRefreshing(false);
                 } catch (JSONException e) {
                     Log.e(TAG, "json hit exception", e);
