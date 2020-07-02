@@ -22,6 +22,7 @@ public class Tweet {
     public Long id;
     public String time;
     public String media;
+    public Boolean isLiked;
 
     // empty constructor needed for parceler library
     public Tweet(){}
@@ -33,6 +34,7 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
         tweet.time = jsonObject.getString("created_at");
+
 
 
 

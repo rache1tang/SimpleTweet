@@ -10,6 +10,7 @@ public class User {
     public String name;
     public String handle;
     public String publicImageUrl;
+    public int likes;
 
     // empty constructor for parceler library
     public User(){}
@@ -19,6 +20,7 @@ public class User {
         user.name = jsonObject.getString("name");
         user.handle = jsonObject.getString("screen_name");
         user.publicImageUrl = jsonObject.getString("profile_image_url_https");
+        user.likes = jsonObject.getInt("favourites_count");
         return user;
     }
 }

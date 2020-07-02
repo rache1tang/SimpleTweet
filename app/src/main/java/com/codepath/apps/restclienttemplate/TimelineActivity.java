@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -30,7 +33,7 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
-    public final int REQUEST_CODE = 20;
+    public static final int REQUEST_CODE = 20;
 
     List<Tweet> tweets;
     TweetsAdapter adapter;
@@ -38,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
     TwitterClient client;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    ImageButton ibReply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +77,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         // initialize list of tweets and adapter
         tweets = new ArrayList<>();
-        adapter = new TweetsAdapter(this, tweets);
+        adapter = new TweetsAdapter(this, tweets, client);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -93,8 +97,8 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.addOnScrollListener(scrollListener);
 
         populateHomeTimeline();
-    }
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // inflate menu -- adds items to the action bar if it is present
@@ -114,7 +118,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             // get data from intent (tweet)
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
