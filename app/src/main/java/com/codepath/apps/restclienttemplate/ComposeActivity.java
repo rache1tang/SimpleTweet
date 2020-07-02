@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,13 +12,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import okhttp3.Headers;
@@ -31,6 +37,10 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     TwitterClient client;
     TextView tvCount;
+    ImageButton ibComposeClose;
+    TextView tvComposeName;
+    TextView tvComposeHandle;
+    ImageView ivComposeProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +49,39 @@ public class ComposeActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
+                ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
+        getSupportActionBar().setIcon(R.drawable.twitter_logo);
+
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
         tvCount = findViewById(R.id.tvCount);
+        ibComposeClose = findViewById(R.id.ibComposeClose);
+        tvComposeName = findViewById(R.id.tvComposeName);
+        tvComposeHandle = findViewById(R.id.tvComposeHandle);
+        ivComposeProfile = findViewById(R.id.ivComposeProfile);
+
+        client.getUserData(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    tvComposeHandle.setText("@" + jsonObject.getString("screen_name"));
+                    tvComposeName.setText(jsonObject.getString("name"));
+
+                    String profileUrl = jsonObject.getString("profile_image_url_https");
+                    Glide.with(getApplicationContext()).load(profileUrl).override(250, 250).circleCrop().into(ivComposeProfile);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+            }
+        });
+
 
         tvCount.setText("0");
 
@@ -70,6 +110,13 @@ public class ComposeActivity extends AppCompatActivity {
         };
 
         etCompose.addTextChangedListener(watcher);
+
+        ibComposeClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // set click listener
         btnTweet.setOnClickListener(new View.OnClickListener() {

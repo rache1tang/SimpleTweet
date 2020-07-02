@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -91,9 +93,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.handle);
             tvTime.setText(Tweet.getRelativeTimeAgo(tweet.time));
-            Glide.with(context).load(tweet.user.publicImageUrl).into(ivProfileImage);
+            Glide.with(context).load(tweet.user.publicImageUrl).circleCrop().into(ivProfileImage);
             if (tweet.media != null) {
-                Glide.with(context).load(tweet.media).override(1024, 1024).fitCenter().centerCrop().into(ivMedia);
+                int radius = 20;
+                Glide.with(context).load(tweet.media).override(1024, 1024).transform(new RoundedCorners(radius)).into(ivMedia);
             }
         }
     }

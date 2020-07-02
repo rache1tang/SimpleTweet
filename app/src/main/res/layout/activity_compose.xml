@@ -11,18 +11,22 @@
         android:id="@+id/etCompose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ivComposeProfile"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/what_s_happening"
         android:inputType="textMultiLine"
-        android:minLines="5" />
+        android:minLines="7"
+        android:textColor="#6E6D6D" />
 
     <Button
         android:id="@+id/btnTweet"
+        android:backgroundTint="@color/twitter_blue_50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etCompose"
@@ -37,7 +41,50 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etCompose"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         tools:text="number" />
+
+    <ImageView
+        android:id="@+id/ivComposeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvComposeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/ivComposeProfile"
+        android:textSize="18sp"
+        tools:text="username" />
+
+    <TextView
+        android:id="@+id/tvComposeHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvComposeName"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/ivComposeProfile"
+        tools:text="handle" />
+
+    <ImageButton
+        android:id="@+id/ibComposeClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#F9F9F9"
+        android:src="@drawable/ic_vector_close" />
+
 </RelativeLayout>
