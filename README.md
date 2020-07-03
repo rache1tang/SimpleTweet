@@ -49,6 +49,10 @@ Here's a walkthrough of implemented user stories:
 * https://github.com/rache1tang/SimpleTweet/blob/master/scroll_like.gif
 * https://github.com/rache1tang/SimpleTweet/blob/master/make_exit.gif
 * https://github.com/rache1tang/SimpleTweet/blob/master/twitter_link.gif
+* https://github.com/rache1tang/SimpleTweet/blob/master/refresh.gif
+* https://github.com/rache1tang/SimpleTweet/blob/master/compose_post.gif
+
+
 
 GIF created with [Kap](https://getkap.co/).
 
